@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Search, ChefHat, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -7,6 +8,7 @@ interface EmptyStateProps {
   description?: string;
   onAction?: () => void;
   actionLabel?: string;
+  actionHref?: string;
 }
 
 const icons = {
@@ -36,6 +38,7 @@ const EmptyState = ({
   description,
   onAction,
   actionLabel = "Try Again",
+  actionHref,
 }: EmptyStateProps) => {
   const Icon = icons[type];
   const content = defaultContent[type];
@@ -48,14 +51,20 @@ const EmptyState = ({
       <h3 className="font-display text-xl font-semibold text-foreground mb-2">
         {title || content.title}
       </h3>
-      <p className="text-muted-foreground max-w-md mb-6">
+      <p className="text-muted-foreground font-body max-w-md mb-6">
         {description || content.description}
       </p>
-      {onAction && (
-        <Button onClick={onAction} variant="outline">
+      {actionHref ? (
+        <Link to={actionHref}>
+          <Button variant="outline" className="font-display">
+            {actionLabel}
+          </Button>
+        </Link>
+      ) : onAction ? (
+        <Button onClick={onAction} variant="outline" className="font-display">
           {actionLabel}
         </Button>
-      )}
+      ) : null}
     </div>
   );
 };

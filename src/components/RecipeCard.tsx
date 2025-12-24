@@ -3,11 +3,22 @@ import { Clock, ChefHat, Heart, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { ApiRecipe } from "@/lib/api/recipeApi";
 import { useState } from "react";
 
+interface RecipeCardRecipe {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  cookingTime: number;
+  difficulty: "Easy" | "Medium" | "Hard";
+  servings: number;
+  category: string;
+  ingredients: { id: string; name: string; quantity: number; unit: string }[];
+}
+
 interface RecipeCardProps {
-  recipe: ApiRecipe;
+  recipe: RecipeCardRecipe;
 }
 
 const difficultyStyles = {
